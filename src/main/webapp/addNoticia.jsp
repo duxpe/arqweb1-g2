@@ -29,7 +29,6 @@
             <div class="col-md-6 mb-3">
                 <label for="categoria" class="form-label">Categoria</label>
                 <select class="form-select" id="categoria" name="categoria" required>
-                    <option value="">Selecione</option>
                     <option value="Política">Política</option>
                     <option value="Esportes">Esportes</option>
                     <option value="Tecnologia">Tecnologia</option>
@@ -47,11 +46,6 @@
         <div class="mb-3">
             <label for="conteudo" class="form-label">Conteúdo Completo</label>
             <textarea class="form-control" id="conteudo" name="conteudo" rows="8" required></textarea>
-        </div>
-
-        <div class="mb-3">
-            <label for="imagem" class="form-label">Imagem de Destaque</label>
-            <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
         </div>
 
         <div class="d-flex justify-content-end">

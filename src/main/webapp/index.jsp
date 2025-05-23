@@ -10,7 +10,7 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <h5 class="card-title">${noticia.titulo}</h5>
-                        <p class="card-text">${noticia.texto}</p>
+                        <p class="card-text">${noticia.resumo}</p>
                         <a href="${pageContext.request.contextPath}/listar-noticia?id=${noticia.id}"
                            class="btn btn-primary">Leia Mais</a>
                     </div>

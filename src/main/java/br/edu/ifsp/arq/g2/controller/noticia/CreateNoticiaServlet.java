@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
@@ -13,6 +14,7 @@ import br.edu.ifsp.arq.g2.model.Noticia;
 
 
 @WebServlet("/criar-noticia")
+@MultipartConfig
 public class CreateNoticiaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private NoticiaDAO dao = NoticiaDAO.getInstance();
@@ -25,35 +27,50 @@ public class CreateNoticiaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+        	System.out.println("Entrou no create!");
             request.setCharacterEncoding("UTF-8");
 
             String titulo = request.getParameter("titulo");
-            String texto = request.getParameter("texto");
+            String conteudo = request.getParameter("conteudo");
             String resumo = request.getParameter("resumo");
             String dataPubStr = request.getParameter("dataPublicacao");
             String nomeAutor = request.getParameter("nomeAutor");
             String categoria = request.getParameter("categoria");
+            
+        	System.out.println("ch1!");
 
             if (titulo == null || titulo.isEmpty()
-             || texto  == null || texto.isEmpty()
+             || conteudo  == null || conteudo.isEmpty()
              || resumo == null || resumo.isEmpty()
              || dataPubStr == null || dataPubStr.isEmpty()
              || nomeAutor  == null || nomeAutor.isEmpty()
              || categoria  == null || categoria.isEmpty()) {
                 throw new RuntimeException("Todos os campos são obrigatórios.");
             }
+            
+        	System.out.println("ch2!");
+
+            //Conceito base para salvar a imagem vai parecer com algo assim:
+//            Part imagemPart = request.getPart("imagem");
+//            if (imagemPart != null && imagemPart.getSize()>0) {
+//                String nomeArquivo = Paths.get(imagemPart.getSubmittedFileName()).getFileName().toString();
+//                imagemPart.write("/caminho/para/uploads/"+nomeArquivo);
+//                // salve o nomeArquivo ou caminho em Noticia, se desejar
+//            }
 
             LocalDate dataPublicacao = LocalDate.parse(dataPubStr);
 
             Noticia nova = new Noticia(
                 titulo,
-                texto,
+                conteudo,
                 resumo,
                 dataPublicacao,
                 nomeAutor,
                 categoria
             );
             dao.addNoticia(nova);
+        	System.out.println("ch3");
+
 
             response.sendRedirect(request.getContextPath() + "/listar-noticia");
             return;
@@ -67,6 +84,8 @@ public class CreateNoticiaServlet extends HttpServlet {
         catch (Exception ex) {
             request.setAttribute("erro", "Erro ao criar notícia: " + ex.getMessage());
         }
+        
+    	System.out.println("passou do ponto ch4!");
 
         request.getRequestDispatcher("addNoticia.jsp")
                .forward(request, response);

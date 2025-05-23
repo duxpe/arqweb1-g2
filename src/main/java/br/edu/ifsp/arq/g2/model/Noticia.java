@@ -6,7 +6,7 @@ public class Noticia {
 
 	private static int lastId = 0;
 	private String titulo;
-	private String texto;
+	private String conteudo;
 	private LocalDate dataPublicacao;
 	private String nomeAutor;
 	private String resumo;
@@ -18,10 +18,10 @@ public class Noticia {
 		this.id = Noticia.lastId++;
 	}
 
-	public Noticia(String titulo, String texto, String resumo, LocalDate dataPublicacao, String nomeAutor, String categoria) {
+	public Noticia(String titulo, String conteudo, String resumo, LocalDate dataPublicacao, String nomeAutor, String categoria) {
 		this();
 		setTitulo(titulo);
-		setTexto(texto);
+		setConteudo(conteudo);
 		setDataPublicacao(dataPublicacao);
 		setNomeAutor(nomeAutor);
 		setCategoria(categoria);
@@ -61,12 +61,12 @@ public class Noticia {
 		this.titulo = titulo;
 	}
 
-	public String getTexto() {
-		return texto;
+	public String getConteudo() {
+		return conteudo;
 	}
 
-	public void setTexto(String texto) {
-		this.texto = texto;
+	public void setConteudo(String texto) {
+		this.conteudo = texto;
 	}
 
 	public LocalDate getDataPublicacao() {

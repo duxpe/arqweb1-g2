@@ -72,7 +72,7 @@ public class NoticiaDAO {
 		for (Noticia n : this.noticias) {
 			if (n.getId() == id) {
 				n.setTitulo(titulo);
-				n.setTexto(texto);
+				n.setConteudo(texto);
 				n.setResumo(resumo);
 				n.setDataPublicacao(dataPublicacao);
 				n.setNomeAutor(nomeAutor);
