@@ -37,3 +37,16 @@ Thumbs.db
 *~
 *.swp
 
+# Tomcat embutido no projeto
+apache-tomcat-*/
+tomcat-*/
+**/apache-tomcat-*/
+**/tomcat-*/
+
+# Artefatos internos do Tomcat
+**/tomcat*/bin/
+**/tomcat*/conf/
+**/tomcat*/logs/
+**/tomcat*/temp/
+**/tomcat*/work/
+
