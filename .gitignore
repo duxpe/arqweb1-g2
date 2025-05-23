@@ -1,0 +1,39 @@
+# Diretório de build do Maven
+/target/
+
+# Arquivos de logs
+*.log
+
+# IDE: IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# IDE: Eclipse
+.project
+.classpath
+.settings/
+*.launch
+
+# IDE: VS Code
+.vscode/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Dependências baixadas localmente (se houver)
+/lib/
+
+# Configurações de container (opcional)
+/tomcat.*/  
+/**/*.war
+
+# Arquivos gerados pelos plugins do Maven
+.mvn/wrapper/maven-wrapper.jar
+
+# Arquivos temporários
+*~
+*.swp
+
