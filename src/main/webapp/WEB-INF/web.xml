@@ -4,4 +4,34 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>FileUploadServelet</servlet-name>
+  	<display-name>FileUploadServelet</display-name>
+  	<description></description>
+  	<servlet-class>br.edu.ifsp.arq.g2.controller.imagem.FileUploadServelet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>CreateImagemServlet</servlet-name>
+  	<display-name>CreateImagemServlet</display-name>
+  	<description></description>
+  	<servlet-class>br.edu.ifsp.arq.g2.controller.imagem.img.CreateImagemServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>CreateImagemServelet</servlet-name>
+  	<display-name>CreateImagemServelet</display-name>
+  	<description></description>
+  	<servlet-class>br.edu.ifsp.arq.g2.controller.imagem.CreateImagemServelet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>FileUploadServelet</servlet-name>
+  	<url-pattern>/upload-file</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CreateImagemServlet</servlet-name>
+  	<url-pattern>/CreateImagemServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CreateImagemServelet</servlet-name>
+  	<url-pattern>/CreateImagemServelet</url-pattern>
+  </servlet-mapping>
 </web-app>
