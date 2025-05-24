@@ -1,6 +1,7 @@
 package br.edu.ifsp.arq.g2.controller.noticia;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -50,13 +51,13 @@ public class CreateNoticiaServlet extends HttpServlet {
             
         	System.out.println("ch2!");
 
-            //Conceito base para salvar a imagem vai parecer com algo assim:
-//            Part imagemPart = request.getPart("imagem");
-//            if (imagemPart != null && imagemPart.getSize()>0) {
-//                String nomeArquivo = Paths.get(imagemPart.getSubmittedFileName()).getFileName().toString();
-//                imagemPart.write("/caminho/para/uploads/"+nomeArquivo);
-//                // salve o nomeArquivo ou caminho em Noticia, se desejar
-//            }
+            Part imagemPart = request.getPart("imagem");
+            byte[] imagemBytes = null;
+            if (imagemPart != null && imagemPart.getSize() > 0) {
+            	try (InputStream is = imagemPart.getInputStream()) {
+                    imagemBytes = is.readAllBytes();
+                }
+            }
 
             LocalDate dataPublicacao = LocalDate.parse(dataPubStr);
 
@@ -68,9 +69,12 @@ public class CreateNoticiaServlet extends HttpServlet {
                 nomeAutor,
                 categoria
             );
-            dao.addNoticia(nova);
-        	System.out.println("ch3");
+            
+            nova.setImagem(imagemBytes);
 
+            System.out.println("ch3");
+
+            dao.addNoticia(nova);
 
             response.sendRedirect(request.getContextPath() + "/listar-noticia");
             return;

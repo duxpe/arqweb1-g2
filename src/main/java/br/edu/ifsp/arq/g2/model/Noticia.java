@@ -6,6 +6,7 @@ public class Noticia {
 
 	private static int lastId = 0;
 	private String titulo;
+	 private byte[] imagem; 
 	private String conteudo;
 	private LocalDate dataPublicacao;
 	private String nomeAutor;
@@ -88,4 +89,12 @@ public class Noticia {
 	public int getId() {
 		return id;
 	}
+	
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
+    }
 }
