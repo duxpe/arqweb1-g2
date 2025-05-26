@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.edu.ifsp.arq.g2.model.Noticia;
 
@@ -105,5 +106,21 @@ public class NoticiaDAO {
 			e.printStackTrace();
 		}
 		return n;
+	}
+
+	public List<Noticia> buscar(String buscarParam) {
+	    List<Noticia> resultados = new ArrayList<>();
+	    if (buscarParam == null || buscarParam.trim().isEmpty()) {
+	        return resultados;
+	    }
+	    String termo = buscarParam.trim().toLowerCase();
+	    for (Noticia n : this.noticias) {
+	        if (n.getTitulo().toLowerCase().contains(termo)
+	                || n.getNomeAutor().toLowerCase().contains(termo)
+	                || n.getCategoria().toLowerCase().contains(termo)) {
+	            resultados.add(n);
+	        }
+	    }
+	    return resultados;
 	}
 }

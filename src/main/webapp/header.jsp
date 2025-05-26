@@ -22,7 +22,3 @@
 	<c:if test="${not empty sessionScope.erro}">
 		<div class="alert alert-danger" role="alert">${sessionScope.erro}</div>
 	</c:if>
-	<c:if
-		test="${(pageContext.request.requestURI != '/g2/login.jsp' && pageContext.request.requestURI != '/g2/addUsuario.jsp') && (sessionScope.usuarioLogado == null)}">
-		<c:redirect url="/login.jsp" />
-	</c:if>

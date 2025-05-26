@@ -54,7 +54,7 @@ public class UpdateUsuarioServlet extends HttpServlet {
 			String idadeStr = request.getParameter("idade");
 
 			if (idParam == null || usuario == null || senha == null || nome == null || idadeStr == null
-					|| usuario.isEmpty() || senha.isEmpty() || nome.isEmpty() || idadeStr.isEmpty()) {
+					|| usuario.isEmpty() || nome.isEmpty() || idadeStr.isEmpty()) {
 				throw new RuntimeException("Todos os campos são obrigatórios.");
 			}
 

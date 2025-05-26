@@ -53,14 +53,24 @@ public class UsuarioDAO {
 	}
 
 	public void updateUsuario(int id, String usuario, String senha, String nome, int idade) {
-		for (Usuario u : this.usuarios) {
-			if (u.getId() == id) {
-				u.setUsuario(usuario);
-				u.setSenha(senha);
-				u.setNome(nome);
-				u.setIdade(idade);
-			}
-		}
+	    for (Usuario u : this.usuarios) {
+	        if (u.getId() == id) {
+	            if (usuario != null && !usuario.trim().isEmpty()) {
+	                u.setUsuario(usuario.trim());
+	            }
+	            if (senha != null && !senha.trim().isEmpty()) {
+	                u.setSenha(senha.trim());
+	            }
+	            if (nome != null && !nome.trim().isEmpty()) {
+	                u.setNome(nome.trim());
+	            }
+	            
+	            if (idade > 0) {
+	                u.setIdade(idade);
+	            }
+	            break;
+	        }
+	    }
 	}
 
 	public Usuario getUsuario(String usuario, String senha) throws NoSuchElementException {
