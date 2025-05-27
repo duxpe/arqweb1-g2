@@ -46,6 +46,11 @@ request.setAttribute("categoriasMap", categoriasMap);
 	height: 200px;
 	object-fit: cover;
 }
+
+.carousel-caption {
+    background: rgba(0,0,0,0.5);
+    padding: 0.5rem;
+}
 </style>
 
 <div class="container py-4">
@@ -90,7 +95,7 @@ request.setAttribute("categoriasMap", categoriasMap);
 						</c:otherwise>
 					</c:choose>
 
-					<div class="carousel-caption d-none d-md-block text-left">
+					 <div class="carousel-caption text-left">
 						<h5 class="text-white">${noticia.titulo}</h5>
 						<p class="text-white-50">${noticia.resumo}</p>
 						<a
@@ -171,6 +176,7 @@ request.setAttribute("categoriasMap", categoriasMap);
 								href="${pageContext.request.contextPath}/listar-noticia?id=${noticia.id}"
 								class="btn btn-primary mt-auto">Leia Mais</a>
 						</div>
+						
 					</div>
 				</div>
 			</c:forEach>

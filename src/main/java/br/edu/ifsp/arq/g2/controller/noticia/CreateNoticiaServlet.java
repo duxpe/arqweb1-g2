@@ -28,7 +28,6 @@ public class CreateNoticiaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-        	System.out.println("Entrou no create!");
             request.setCharacterEncoding("UTF-8");
 
             String titulo = request.getParameter("titulo");
@@ -38,7 +37,6 @@ public class CreateNoticiaServlet extends HttpServlet {
             String nomeAutor = request.getParameter("nomeAutor");
             String categoria = request.getParameter("categoria");
             
-        	System.out.println("ch1!");
 
             if (titulo == null || titulo.isEmpty()
              || conteudo  == null || conteudo.isEmpty()
@@ -49,7 +47,6 @@ public class CreateNoticiaServlet extends HttpServlet {
                 throw new RuntimeException("Todos os campos são obrigatórios.");
             }
             
-        	System.out.println("ch2!");
 
             Part imagemPart = request.getPart("imagem");
             byte[] imagemBytes = null;
@@ -72,8 +69,6 @@ public class CreateNoticiaServlet extends HttpServlet {
             
             nova.setImagem(imagemBytes);
 
-            System.out.println("ch3");
-
             dao.addNoticia(nova);
 
             response.sendRedirect(request.getContextPath() + "/listar-noticia");
@@ -89,8 +84,6 @@ public class CreateNoticiaServlet extends HttpServlet {
             request.setAttribute("erro", "Erro ao criar notícia: " + ex.getMessage());
         }
         
-    	System.out.println("passou do ponto ch4!");
-
         request.getRequestDispatcher("addNoticia.jsp")
                .forward(request, response);
     }

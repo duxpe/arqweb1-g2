@@ -74,18 +74,8 @@ public class UsuarioDAO {
 	}
 
 	public Usuario getUsuario(String usuario, String senha) throws NoSuchElementException {
-		System.out.println("entrou");
-
 		for (Usuario u : this.usuarios) {
-			System.out.println(u.getUsuario());
-			System.out.println(u.getSenha());
-			System.out.println(usuario);
-			System.out.println(senha);
-			System.out.println(u.getUsuario() == usuario);
-			System.out.println(u.getSenha() == senha);
-
 			if (u.getUsuario().equals(usuario) && u.getSenha().equals(senha)) {
-				System.out.println("Got it! " + u.toString());
 				return u;
 			}
 		}

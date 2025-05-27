@@ -29,21 +29,14 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String errorMessage = "";
 		Usuario usuarioLogado = null;
-		System.out.println(dao.getUsuarios());
 		String usuario, senha;
 
 		try {
 			session.setAttribute("erro", null);
 			usuario = (String) request.getParameter("username");
 			senha = (String) request.getParameter("senha");
-			System.out.println(dao.getUsuarios());
-			System.out.println(usuario);
-			System.out.println(senha);
 
 			usuarioLogado = dao.getUsuario(usuario, senha);
-
-			System.out.println(usuarioLogado);
-			System.out.println(dao.getUsuarios());
 
 			session.setAttribute("usuarioLogado", usuarioLogado);
 			response.sendRedirect(request.getContextPath() + "/listar-noticia");

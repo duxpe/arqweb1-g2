@@ -28,7 +28,6 @@ public class UpdateNoticiaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String idParam = request.getParameter("id");
 		if (idParam == null || idParam.isEmpty()) {
-			System.out.println("id estava vazio");
 			response.sendRedirect(request.getContextPath() + "/listar-noticia");
 			return;
 		}
@@ -43,7 +42,6 @@ public class UpdateNoticiaServlet extends HttpServlet {
 			request.setAttribute("noticiaSelecionada", noticia);
 			request.getRequestDispatcher("changeNoticia.jsp").forward(request, response);
 		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
 			response.sendRedirect(request.getContextPath() + "/listar-noticia");
 		}
 	}
