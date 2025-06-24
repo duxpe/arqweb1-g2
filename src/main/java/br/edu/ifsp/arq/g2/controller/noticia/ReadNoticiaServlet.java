@@ -12,7 +12,7 @@ import br.edu.ifsp.arq.g2.model.Noticia;
 
 
 
-@WebServlet({ "/", "/listar-noticia"})
+@WebServlet({"/listar-noticia"})
 public class ReadNoticiaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private NoticiaDAO dao = NoticiaDAO.getInstance();
