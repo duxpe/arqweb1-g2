@@ -64,7 +64,7 @@ public class UpdateNoticiaServlet extends HttpServlet {
 					|| nomeAutor == null || categoria == null || idParam.isEmpty() || titulo.isEmpty()
 					|| conteudo.isEmpty() || resumo.isEmpty() || dataPubStr.isEmpty() || nomeAutor.isEmpty()
 					|| categoria.isEmpty()) {
-				throw new RuntimeException("Todos os campos são obrigatórios.");
+				throw new RuntimeException("Todos os campos precisam estar preenchidos.");
 			}
 
 			int id = Integer.parseInt(idParam);
@@ -90,6 +90,6 @@ public class UpdateNoticiaServlet extends HttpServlet {
 			request.setAttribute("erro", "Erro ao atualizar notícia: " + ex.getMessage());
 		}
 
-		request.getRequestDispatcher("changeNoticia.jsp").forward(request, response);
+		request.getRequestDispatcher("changeNoticia.html").forward(request, response);
 	}
 }

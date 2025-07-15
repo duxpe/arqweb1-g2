@@ -27,7 +27,7 @@ public class CreateNoticiaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String contextPath = request.getContextPath(); // Captura o context path dinamicamente
+        String contextPath = request.getContextPath();
         try {
             request.setCharacterEncoding("UTF-8");
 
@@ -44,7 +44,7 @@ public class CreateNoticiaServlet extends HttpServlet {
              || dataPubStr == null || dataPubStr.isEmpty()
              || nomeAutor  == null || nomeAutor.isEmpty()
              || categoria  == null || categoria.isEmpty()) {
-                throw new RuntimeException("Todos os campos são obrigatórios.");
+                throw new RuntimeException("Todos os campos precisam estar preenchidos.");
             }
             
             Part imagemPart = request.getPart("imagem");
@@ -70,18 +70,17 @@ public class CreateNoticiaServlet extends HttpServlet {
 
             dao.addNoticia(nova);
 
-            response.sendRedirect(contextPath + "/"); // Redireciona para a lista após sucesso
+            response.sendRedirect(contextPath + "/");
             return;
         }
         catch (DateTimeParseException ex) {
-            // Em caso de erro, redireciona para a página do formulário com uma mensagem de erro
-            response.sendRedirect(contextPath + "/addNoticia.html?erro=" + "Data de publicação inválida.");
+            response.sendRedirect(contextPath + "/addNoticia.jsp?erro=" + "Data invalida.");
         }
         catch (RuntimeException ex) {
-            response.sendRedirect(contextPath + "/addNoticia.html?erro=" + ex.getMessage());
+            response.sendRedirect(contextPath + "/addNoticia.jsp?erro=" + ex.getMessage());
         }
         catch (Exception ex) {
-            response.sendRedirect(contextPath + "/addNoticia.html?erro=" + "Erro ao criar notícia: " + ex.getMessage());
+            response.sendRedirect(contextPath + "/addNoticia.jsp?erro=" + "Erro ao criar noticia: " + ex.getMessage());
         }
     }
 }

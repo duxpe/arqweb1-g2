@@ -1,7 +1,6 @@
 console.log("header.js está sendo carregado!");
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Definimos o context path aqui. Se seu app mudar de contexto, você só precisa mudar esta linha.
     const CONTEXT_PATH = '/g2'; 
     const LOGIN_STATUS_API_URL = `${CONTEXT_PATH}/auth`; 
     const mainMenuContainer = document.getElementById('main-menu-items');
@@ -20,27 +19,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             
-            // Renderiza o menu apropriado com base no status de login e o userId, se disponível
             if (data.loggedIn) {
-                renderLoggedInMenu(data.userId); // Passa o userId se o backend o retornar
+                renderLoggedInMenu(data.userId);
             } else {
                 renderLoggedOutMenu(null);
             }
         } catch (error) {
             console.error("Erro na requisição de status de login:", error);
-            // Em caso de erro de rede/parse, assume não logado
             renderLoggedOutMenu(null);
         }
     }
 
-    // Função para renderizar o menu quando o usuário está logado
     function renderLoggedInMenu(userId) {
 		console.log("entrou acola");
 
         mainMenuContainer.innerHTML = `
             <li class="nav-item"><a class="nav-link" href="${CONTEXT_PATH}/sobre.html">Sobre o Sistema</a></li>
-            <li class="nav-item"><a class="nav-link" href="${CONTEXT_PATH}/addNoticia.html">Cadastrar Notícia</a></li>
-            <li class="nav-item"><a class="nav-link" href="${CONTEXT_PATH}/listUsuarios.html">Listar Usuários</a></li>
+            <li class="nav-item"><a class="nav-link" href="${CONTEXT_PATH}/addNoticia.jsp">Cadastrar Notícia</a></li>
+            <li class="nav-item"><a class="nav-link" href="${CONTEXT_PATH}/listUsuarios.jsp">Listar Usuários</a></li>
             ${userId ? `<li class="nav-item"><a class="nav-link" href="${CONTEXT_PATH}/changeUsuario.html?id=${userId}">Configurações Pessoais</a></li>` : ''}
         `;
 
@@ -49,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // Função para renderizar o menu quando o usuário NÃO está logado
     function renderLoggedOutMenu() {
 		console.log("entrou aqui");
         mainMenuContainer.innerHTML = `
@@ -62,6 +57,5 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // Chama a função para atualizar o menu ao carregar a página
     updateHeaderMenu();
 });

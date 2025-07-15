@@ -65,32 +65,35 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        HttpSession session = request.getSession(false); // Não cria nova sessão se não existir
-
+        HttpSession session = request.getSession(false);
+        String userRole = "user";
+        
         boolean loggedIn = (session != null && session.getAttribute("usuarioLogado") != null);
-        Integer userId = null; // Inicializa com null
+        Integer userId = null;
         if (loggedIn) {
             Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
             if (usuario != null) {
-                userId = usuario.getId(); // Assume que seu objeto Usuario tem um método getId()
-            }
+                userId = usuario.getId();
+                if (usuario.isAdmin()) userRole = "admin";
+                else if (usuario.isVisualizador()) userRole = "visualizador";}
         }
 
-        // Retorna um JSON com o status de login e o ID do usuário (se logado)
-        response.getWriter().write(gson.toJson(new LoginStatusResponse(loggedIn, userId)));
+        response.getWriter().write(gson.toJson(new LoginStatusResponse(loggedIn, userId, userRole)));	
     }
 
-    // Classe auxiliar para o retorno JSON
     private static class LoginStatusResponse {
         private boolean loggedIn;
-        private Integer userId; // Adicionado para retornar o ID do usuário
+        private Integer userId;
+        private String userRole;
 
-        public LoginStatusResponse(boolean loggedIn, Integer userId) {
+        public LoginStatusResponse(boolean loggedIn, Integer userId, String userRole) {
             this.loggedIn = loggedIn;
             this.userId = userId;
+            this.userRole = userRole;
         }
 
-        // Getters para Gson
+        public String getUserRole() { return userRole; }
+        
         public boolean isLoggedIn() {
             return loggedIn;
         }

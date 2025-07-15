@@ -1,11 +1,10 @@
 console.log("Main.js está sendo carregado!");
 
 document.addEventListener('DOMContentLoaded', () => {
-    const NEWS_API_URL = 'listar-noticia'; // Seu endpoint que retorna notícias
+    const NEWS_API_URL = 'listar-noticia';
 
-    const mainContentContainer = document.querySelector('.container.py-4'); // Seleciona o container principal do seu HTML
+    const mainContentContainer = document.querySelector('.container.py-4');
     
-    // Novas referências para as seções que queremos ocultar/mostrar
     const defaultSections = `
         <div id="carouselDestaque" class="carousel slide mb-5" data-ride="carousel">
             <ol class="carousel-indicators" id="carousel-indicators-container"></ol>
@@ -22,11 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <div id="categories-container"></div>
     `;
 
-    // A barra de busca e o formulário devem sempre estar visíveis
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search-input');
 
-    // Função auxiliar para criar o HTML de um card de notícia
     function createNewsCard(noticia) {
         const imageUrl = noticia.imagem ? `data:image/png;base64,${noticia.imagem}` : '';
         const imageHtml = noticia.imagem ?
@@ -50,11 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // Função para renderizar o carrossel
     function renderCarousel(noticias) {
         const carouselIndicatorsContainer = document.getElementById('carousel-indicators-container');
         const carouselInnerContainer = document.getElementById('carousel-inner-container');
-        if (!carouselIndicatorsContainer || !carouselInnerContainer) return; // Garante que os elementos existem
+        if (!carouselIndicatorsContainer || !carouselInnerContainer) return;
 
         carouselIndicatorsContainer.innerHTML = '';
         carouselInnerContainer.innerHTML = '';
@@ -87,14 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         });
 
-        // Inicializa o carrossel do Bootstrap após renderizar
         $('#carouselDestaque').carousel();
     }
 
-    // Função para renderizar as notícias recentes (apenas as 3 mais recentes)
     function renderRecentNews(noticias) {
         const recentNewsContainer = document.getElementById('recent-news-container');
-        if (!recentNewsContainer) return; // Garante que o elemento existe
+        if (!recentNewsContainer) return;
 
         recentNewsContainer.innerHTML = '';
         const sortedNews = [...noticias].sort((a, b) => new Date(b.dataPublicacao) - new Date(a.dataPublicacao));
@@ -110,10 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Função para renderizar notícias por categoria
     function renderCategorizedNews(noticias) {
         const categoriesContainer = document.getElementById('categories-container');
-        if (!categoriesContainer) return; // Garante que o elemento existe
+        if (!categoriesContainer) return;
 
         categoriesContainer.innerHTML = '';
         if (noticias.length === 0) {
@@ -140,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // NOVA FUNÇÃO: Renderizar apenas resultados de busca
     function renderSearchResults(noticias) {
         mainContentContainer.innerHTML = `
             <form id="search-form" class="mb-4">
@@ -160,19 +152,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const searchResultsContainer = document.getElementById('search-results-container');
         const noResultsMessage = document.getElementById('no-results-message');
-        const newSearchInput = document.getElementById('search-input'); // Referência ao novo input de busca
+        const newSearchInput = document.getElementById('search-input');
 
-        // Re-atribui o evento de submit para o novo formulário de busca
         document.getElementById('search-form').addEventListener('submit', (event) => {
             event.preventDefault();
             const newSearchTerm = newSearchInput.value;
-            // Limpa o conteúdo do input para evitar duplicação do termo na URL
             newSearchInput.value = ''; 
-            // Redireciona para a URL com o novo termo de busca
             window.location.href = `${window.location.pathname}?buscar=${encodeURIComponent(newSearchTerm)}`;
         });
         
-        // Preenche o input de busca com o termo atual (se existir na URL)
         const urlParams = new URLSearchParams(window.location.search);
         const currentSearchTerm = urlParams.get('buscar');
         if (currentSearchTerm) {
@@ -181,21 +169,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         if (noticias && noticias.length > 0) {
-            searchResultsContainer.innerHTML = ''; // Limpa antes de adicionar
+            searchResultsContainer.innerHTML = '';
             noticias.forEach(noticia => {
                 searchResultsContainer.innerHTML += createNewsCard(noticia);
             });
-            noResultsMessage.classList.add('d-none'); // Oculta a mensagem
+            noResultsMessage.classList.add('d-none');
         } else {
             searchResultsContainer.innerHTML = '';
-            noResultsMessage.classList.remove('d-none'); // Mostra a mensagem de "nenhum resultado"
+            noResultsMessage.classList.remove('d-none');
         }
     }
 
-    // Função principal para buscar e renderizar todas as notícias
     async function loadNews() {
         const urlParams = new URLSearchParams(window.location.search);
-        const searchTerm = urlParams.get('buscar'); // Pega o termo de busca da URL
+        const searchTerm = urlParams.get('buscar');
 
         try {
             let url = NEWS_API_URL;
@@ -210,20 +197,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const noticias = await response.json();
 
             if (searchTerm) {
-                // Se houver termo de busca na URL, renderiza apenas os resultados
                 renderSearchResults(noticias);
             } else {
-                // Se não houver termo de busca, renderiza a página inicial completa
-                // Garante que o conteúdo padrão está presente no DOM
                 if (!document.getElementById('carouselDestaque')) {
-                    const searchBarHtml = mainContentContainer.querySelector('#search-form').outerHTML; // Salva a barra de busca
-                    mainContentContainer.innerHTML = searchBarHtml + defaultSections; // Restaura as seções padrão
-                    // Re-captura as referências, pois o HTML foi reescrito
-                    // Essas referências não são usadas diretamente aqui, mas são importantes se fossem.
-                    // const carouselIndicatorsContainer = document.getElementById('carousel-indicators-container');
-                    // const carouselInnerContainer = document.getElementById('carousel-inner-container');
-                    // const recentNewsContainer = document.getElementById('recent-news-container');
-                    // const categoriesContainer = document.getElementById('categories-container');
+                    const searchBarHtml = mainContentContainer.querySelector('#search-form').outerHTML;
+                    mainContentContainer.innerHTML = searchBarHtml + defaultSections;
                 }
                 renderCarousel(noticias);
                 renderRecentNews(noticias);
@@ -232,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error("Erro ao carregar notícias:", error);
-            // Poderia exibir uma mensagem de erro na UI
             mainContentContainer.innerHTML = `
                 <form id="search-form" class="mb-4">
                     <div class="input-group">
@@ -246,7 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </form>
                 <div class="alert alert-danger mt-3">Erro ao carregar notícias. Por favor, tente novamente mais tarde.</div>
                 <div class="row" id="search-results-container"></div> `;
-            // Re-atribui o evento de submit ao formulário de busca restaurado
             document.getElementById('search-form').addEventListener('submit', (event) => {
                 event.preventDefault();
                 const newSearchInput = document.getElementById('search-input');
@@ -257,17 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Event Listener para o formulário de busca
-    // Este listener agora só redireciona a página para incluir o termo de busca na URL
     searchForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Impede o envio padrão do formulário
+        event.preventDefault();
         const searchTerm = searchInput.value;
-        // Limpa o conteúdo do input para evitar duplicação do termo na URL
         searchInput.value = ''; 
-        // Redireciona para a URL com o termo de busca
         window.location.href = `${window.location.pathname}?buscar=${encodeURIComponent(searchTerm)}`;
     });
 
-    // Carrega as notícias quando a página é carregada
     loadNews();
 });

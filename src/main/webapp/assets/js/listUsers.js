@@ -1,5 +1,3 @@
-// assets/js/listUsers.js
-
 console.log("listUsers.js está sendo carregado!");
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -14,7 +12,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             const response = await fetch(USERS_API_URL);
             
             if (!response.ok) {
-                // Tenta ler a mensagem de erro do JSON se disponível
                 const errorData = await response.json().catch(() => ({ message: `Erro HTTP: ${response.status} ${response.statusText}` }));
                 displayMessage(errorData.message, 'danger');
                 return;
@@ -23,8 +20,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             const users = await response.json();
 
             if (users && users.length > 0) {
-                usersContainer.innerHTML = ''; // Limpa qualquer conteúdo existente
-                noUsersMessage.classList.add('d-none'); // Esconde a mensagem de nenhum usuário
+                usersContainer.innerHTML = '';
+                noUsersMessage.classList.add('d-none');
 
                 users.forEach(user => {
                     const userCard = `
@@ -56,18 +53,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                     usersContainer.insertAdjacentHTML('beforeend', userCard);
                 });
             } else {
-                usersContainer.innerHTML = ''; // Garante que não há cards antigos
-                noUsersMessage.classList.remove('d-none'); // Mostra a mensagem de nenhum usuário
+                usersContainer.innerHTML = '';
+                noUsersMessage.classList.remove('d-none');
             }
         } catch (error) {
             console.error("Erro ao carregar lista de usuários:", error);
             displayMessage(`Erro ao carregar usuários: ${error.message}`, 'danger');
-            usersContainer.innerHTML = ''; // Limpa o container em caso de erro
-            noUsersMessage.classList.add('d-none'); // Garante que a mensagem "nenhum usuário" não apareça junto com o erro
+            usersContainer.innerHTML = '';
+            noUsersMessage.classList.add('d-none');
         }
     }
 
-    // Função para exibir mensagens de status
     function displayMessage(message, type = 'info') {
         messageArea.innerHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
                                     ${message}
@@ -77,15 +73,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                                  </div>`;
     }
 
-    // Pega qualquer mensagem de erro da URL (se o servlet redirecionou com 'erro' na query)
     const urlParams = new URLSearchParams(window.location.search);
     const errorMessageFromUrl = urlParams.get('erro');
     if (errorMessageFromUrl) {
         displayMessage(errorMessageFromUrl, 'danger');
-        // Limpa o parâmetro da URL para evitar que a mensagem apareça em recarregamentos futuros
         history.replaceState(null, '', window.location.pathname);
     }
 
-    // Carrega os usuários ao carregar a página
     fetchAndRenderUsers();
 });

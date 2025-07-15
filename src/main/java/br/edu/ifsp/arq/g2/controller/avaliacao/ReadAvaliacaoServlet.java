@@ -15,11 +15,11 @@ import com.google.gson.GsonBuilder;
 import br.edu.ifsp.arq.g2.dao.AvaliacaoDAO;
 import br.edu.ifsp.arq.g2.model.Avaliacao;
 
-@WebServlet("/obter-avaliacao") // Novo endpoint para obter avaliação
+@WebServlet("/obter-avaliacao")
 public class ReadAvaliacaoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private AvaliacaoDAO avaliacaoDAO = AvaliacaoDAO.getInstance();
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create(); // Para JSON formatado
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public ReadAvaliacaoServlet() {
         super();
@@ -34,7 +34,7 @@ public class ReadAvaliacaoServlet extends HttpServlet {
         String idNoticiaParam = request.getParameter("idNoticia");
 
         if (idNoticiaParam == null || idNoticiaParam.isEmpty()) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write(gson.toJson(new ErrorResponse("ID da notícia não fornecido.")));
             return;
         }
@@ -44,33 +44,28 @@ public class ReadAvaliacaoServlet extends HttpServlet {
             Optional<Avaliacao> avaliacaoOptional = avaliacaoDAO.getAvaliacaoNoticia(idNoticia);
 
             if (avaliacaoOptional.isPresent()) {
-                // Se a avaliação existe, retorna o objeto Avaliacao completo
                 response.getWriter().write(gson.toJson(avaliacaoOptional.get()));
             } else {
-                // Se não há avaliações para esta notícia, retorna um JSON padrão ou uma avaliação com 0.0
-                // Optei por retornar um objeto Avaliacao com valores padrão (0.0)
                 response.getWriter().write(gson.toJson(new Avaliacao())); 
             }
 
         } catch (NumberFormatException e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write(gson.toJson(new ErrorResponse("ID da notícia inválido. Deve ser um número inteiro.")));
         } catch (Exception e) {
             System.err.println("Erro ao obter avaliação: " + e.getMessage());
             e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write(gson.toJson(new ErrorResponse("Erro inesperado ao obter avaliação: " + e.getMessage())));
         }
     }
 
-    // Não precisamos de doPost para este servlet de leitura
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response); // Ou você pode retornar um 405 Method Not Allowed
+        doGet(request, response);
     }
     
-    // Classe auxiliar para retorno de erro em JSON
     private static class ErrorResponse {
         private String message;
 

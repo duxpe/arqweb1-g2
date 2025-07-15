@@ -1,5 +1,3 @@
-// assets/js/components.js
-
 console.log("EStou sendo chamado!");
 
 async function loadComponent(selector, templatePath) {
@@ -20,7 +18,6 @@ async function loadComponent(selector, templatePath) {
     }
 }
 
-// Quando o DOM estiver completamente carregado, injeta os componentes
 document.addEventListener('DOMContentLoaded', () => {
     loadComponent('app-header', 'assets/templates/header.html'); 
 });

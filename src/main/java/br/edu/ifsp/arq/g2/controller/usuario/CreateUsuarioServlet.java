@@ -23,8 +23,8 @@ public class CreateUsuarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String contextPath = request.getContextPath(); 
-        System.out.println("CreateUsuarioServlet: Recebendo requisição POST para /criar-usuario"); // LOG
+        String contextPath = request.getContextPath();
+        System.out.println("CreateUsuarioServlet: Recebendo requisicao POST para /criar-usuario");
 
         try {
             String usuario = request.getParameter("usuario");
@@ -32,40 +32,39 @@ public class CreateUsuarioServlet extends HttpServlet {
             String nome = request.getParameter("nome");
             String idadeStr = request.getParameter("idade");
 
-            System.out.println("CreateUsuarioServlet: Dados recebidos: usuario=" + usuario + ", nome=" + nome + ", idadeStr=" + idadeStr); // LOG
+            System.out.println("CreateUsuarioServlet: Dados recebidos: usuario=" + usuario + ", nome=" + nome + ", idadeStr=" + idadeStr);
 
             if (usuario == null || usuario.isEmpty() || senha == null || senha.isEmpty() || nome == null
                     || nome.isEmpty() || idadeStr == null || idadeStr.isEmpty()) {
-                System.out.println("CreateUsuarioServlet: Campos obrigatórios faltando."); // LOG
-                throw new RuntimeException("Todos os campos são obrigatórios.");
+                System.out.println("CreateUsuarioServlet: Campos obrigatorios faltando.");
+                throw new RuntimeException("Todos os campos sao obrigatorios.");
             }
             
             int idade = Integer.parseInt(idadeStr);
             if (idade < 0 || idade > 150) {
-                System.out.println("CreateUsuarioServlet: Idade inválida: " + idade); // LOG
+                System.out.println("CreateUsuarioServlet: Idade invalida: " + idade);
                 throw new RuntimeException("A idade deve ser entre 0 e 150.");
             }
 
             Usuario novo = new Usuario(usuario, senha, nome, idade);
-            System.out.println("CreateUsuarioServlet: Objeto Usuario criado: " + novo.toString()); // LOG
+            System.out.println("CreateUsuarioServlet: Objeto Usuario criado: " + novo.toString());
 
-            // *** Ponto crítico: Chamar o DAO ***
-            dao.addUsuario(novo); // Esta linha é onde a persistência acontece
-            System.out.println("CreateUsuarioServlet: Usuário ADICIONADO via DAO. Redirecionando para login."); // LOG
+            dao.addUsuario(novo);
+            System.out.println("CreateUsuarioServlet: Usuario ADICIONADO via DAO. Redirecionando para login.");
 
-            response.sendRedirect(contextPath + "/login.html?sucesso=true&msg=Usuário cadastrado com sucesso! Faça login.");
+            response.sendRedirect(contextPath + "/login.html?sucesso=true&msg=Usuario cadastrado com sucesso! Faca login.");
         } catch (NumberFormatException ex) {
-            String errorMsg = "A idade deve ser um número inteiro válido.";
-            System.err.println("CreateUsuarioServlet: Erro de formato de número: " + errorMsg + " - " + ex.getMessage()); // LOG ERRO
-            ex.printStackTrace(); // Imprime o stack trace no console do servidor
+            String errorMsg = "A idade deve ser um numero inteiro valido.";
+            System.err.println("CreateUsuarioServlet: Erro de formato de numero: " + errorMsg + " - " + ex.getMessage());
+            ex.printStackTrace();
             response.sendRedirect(contextPath + "/addUsuario.html?erro=" + errorMsg);
-        } catch (RuntimeException ex) { // Captura exceções de validação e outras RuntimeExceptions
-            System.err.println("CreateUsuarioServlet: Erro de Runtime: " + ex.getMessage()); // LOG ERRO
+        } catch (RuntimeException ex) {
+            System.err.println("CreateUsuarioServlet: Erro de Runtime: " + ex.getMessage());
             ex.printStackTrace();
             response.sendRedirect(contextPath + "/addUsuario.html?erro=" + ex.getMessage());
-        } catch (Exception ex) { // Captura qualquer outra exceção inesperada
-            String errorMsg = "Erro inesperado ao cadastrar usuário: " + ex.getMessage();
-            System.err.println("CreateUsuarioServlet: Erro geral: " + errorMsg); // LOG ERRO
+        } catch (Exception ex) {
+            String errorMsg = "Erro inesperado ao cadastrar usuario: " + ex.getMessage();
+            System.err.println("CreateUsuarioServlet: Erro geral: " + errorMsg);
             ex.printStackTrace();
             response.sendRedirect(contextPath + "/addUsuario.html?erro=" + errorMsg);
         }
@@ -74,7 +73,7 @@ public class CreateUsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("CreateUsuarioServlet: Recebendo requisição GET para /criar-usuario. Redirecionando para addUsuario.html"); // LOG
+        System.out.println("CreateUsuarioServlet: Recebendo requisicao GET para /criar-usuario. Redirecionando para addUsuario.html");
         response.sendRedirect(request.getContextPath() + "/addUsuario.html");
     }
 }
