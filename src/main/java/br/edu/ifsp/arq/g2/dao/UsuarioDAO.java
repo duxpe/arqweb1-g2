@@ -17,7 +17,9 @@ public class UsuarioDAO {
         usuarios.add(new Usuario("pedro", "123456", "Pedro", 23));
         usuarios.add(new Usuario("natan", "123456", "Natan", 25));
         usuarios.add(new Usuario("eduardo", "123456", "Eduardo", 28));
-		
+        
+        usuarios.add(new Usuario("joao", "123456", "João", 20));
+
 	}
 
 	public static UsuarioDAO getInstance() {
@@ -80,6 +82,27 @@ public class UsuarioDAO {
 			}
 		}
 		throw new NoSuchElementException("Nenhum usuário encontrado!");
+	}
+
+	public void updateUsuario(int id, String usuario, String senha, String nome, int idade, boolean isAdmin) {
+	    for (Usuario u : this.usuarios) {
+	        if (u.getId() == id) {
+	            if (usuario != null && !usuario.trim().isEmpty()) {
+	                u.setUsuario(usuario.trim());
+	            }
+	            if (senha != null && !senha.trim().isEmpty()) {
+	                u.setSenha(senha.trim());
+	            }
+	            if (nome != null && !nome.trim().isEmpty()) {
+	                u.setNome(nome.trim());
+	            }
+	            if (idade > 0) {
+	                u.setIdade(idade);
+	            }
+	            u.setIsAdmin(isAdmin);
+	            break;
+	        }
+	    }
 	}
 
 }

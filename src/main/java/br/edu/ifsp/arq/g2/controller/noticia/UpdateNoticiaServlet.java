@@ -28,7 +28,7 @@ public class UpdateNoticiaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String idParam = request.getParameter("id");
 		if (idParam == null || idParam.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/listar-noticia");
+			response.sendRedirect(request.getContextPath() + "/");
 			return;
 		}
 
@@ -36,13 +36,13 @@ public class UpdateNoticiaServlet extends HttpServlet {
 			int id = Integer.parseInt(idParam);
 			Noticia noticia = dao.getNoticia(id);
 			if (noticia == null) {
-				response.sendRedirect(request.getContextPath() + "/listar-noticia");
+				response.sendRedirect(request.getContextPath() + "/");
 				return;
 			}
 			request.setAttribute("noticiaSelecionada", noticia);
 			request.getRequestDispatcher("changeNoticia.jsp").forward(request, response);
 		} catch (Exception ex) {
-			response.sendRedirect(request.getContextPath() + "/listar-noticia");
+			response.sendRedirect(request.getContextPath() + "/");
 		}
 	}
 
@@ -64,7 +64,7 @@ public class UpdateNoticiaServlet extends HttpServlet {
 					|| nomeAutor == null || categoria == null || idParam.isEmpty() || titulo.isEmpty()
 					|| conteudo.isEmpty() || resumo.isEmpty() || dataPubStr.isEmpty() || nomeAutor.isEmpty()
 					|| categoria.isEmpty()) {
-				throw new RuntimeException("Todos os campos são obrigatórios.");
+				throw new RuntimeException("Todos os campos precisam estar preenchidos.");
 			}
 
 			int id = Integer.parseInt(idParam);
@@ -80,7 +80,7 @@ public class UpdateNoticiaServlet extends HttpServlet {
 
 			dao.updateNoticia(id, titulo, conteudo, resumo, dataPublicacao, nomeAutor, categoria, imagemBytes);
 
-			response.sendRedirect(request.getContextPath() + "/listar-noticia");
+			response.sendRedirect(request.getContextPath() + "/");
 			return;
 		} catch (NumberFormatException | DateTimeParseException ex) {
 			request.setAttribute("erro", "Parâmetro inválido: " + ex.getMessage());
@@ -90,6 +90,6 @@ public class UpdateNoticiaServlet extends HttpServlet {
 			request.setAttribute("erro", "Erro ao atualizar notícia: " + ex.getMessage());
 		}
 
-		request.getRequestDispatcher("changeNoticia.jsp").forward(request, response);
+		request.getRequestDispatcher("changeNoticia.html").forward(request, response);
 	}
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Cadastro de Usuário - G2 Notícias</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    
+    <script src="assets/js/components.js" defer></script> 
+</head>
+<body>
+    <app-header></app-header>
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Cadastro de Novo Usuário</h2>
+
+        <div id="message-area"></div>
+
+        <form action="criar-usuario" method="post" class="mx-auto needs-validation" novalidate style="max-width: 500px;">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome completo</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="João da Silva" required>
+                <div class="invalid-feedback">Por favor, insira seu nome completo.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="usuario" class="form-label">Usuário (login)</label>
+                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="joaosilva" required>
+                <div class="invalid-feedback">Por favor, insira um nome de usuário.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" minlength="6" required>
+                <div class="invalid-feedback">A senha deve ter no mínimo 6 caracteres.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="idade" class="form-label">Idade</label>
+                <input type="number" class="form-control" id="idade" name="idade" min="0" max="150" required>
+                <div class="invalid-feedback">Por favor, insira uma idade válida (entre 0 e 150).</div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="listUsuarios.jsp" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSm5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+    <script src="assets/js/header.js"></script> 
+    <script src="assets/js/components.js" defer></script> 
+    <script src="assets/js/addUsuario.js" defer></script> 
+</body>
+</html>

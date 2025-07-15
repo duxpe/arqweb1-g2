@@ -27,18 +27,18 @@ public class DeleteNoticiaServlet extends HttpServlet {
 
         try {
             if (idParam == null || idParam.isEmpty()) {
-                throw new IllegalArgumentException("ID da notícia não fornecido.");
+                throw new IllegalArgumentException("ID da noticia não fornecido.");
             }
             int id = Integer.parseInt(idParam);
             dao.removeNoticia(id);
-            response.sendRedirect(request.getContextPath() + "/listar-noticia");
+            response.sendRedirect(request.getContextPath() + "/");
             return;
         }
         catch (NumberFormatException ex) {
-            errorMessage = "ID inválido. Deve ser um número inteiro.";
+            errorMessage = "ID invalido. Deve ser um numero inteiro.";
         }
         catch (Exception ex) {
-            errorMessage = "Erro ao excluir notícia: " + ex.getMessage();
+            errorMessage = "Erro ao excluir noticia: " + ex.getMessage();
         }
 
         request.setAttribute("erro", errorMessage);

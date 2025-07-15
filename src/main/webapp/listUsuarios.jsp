@@ -1,59 +1,48 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java"%>
-<%@ page import="br.edu.ifsp.arq.g2.model.Usuario"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="header.jsp"%>
-<%@ include file="menu.jsp"%>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Listar Usuários - G2 Notícias</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    
+    <style>
+        .card-user {
+            min-height: 200px;
+        }
+    </style>
 
-<style>
-.card-user {
-	min-height: 200px;
-}
-</style>
+    <script src="assets/js/components.js" defer></script> 
+</head>
+<body>
+    <app-header></app-header>
 
-<div class="container py-4">
-	<div class="d-flex justify-content-between align-items-center mb-4">
-		<h2>Listar UsuÃ¡rios</h2>
-		<a href="${pageContext.request.contextPath}/addUsuario.jsp"
-			class="btn btn-primary"> Cadastrar UsuÃ¡rio </a>
-	</div>
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Listar Usuários</h2>
+            <a href="/g2/addUsuario.html" class="btn btn-primary"> Cadastrar Usuário </a>
+        </div>
 
-	<c:if test="${not empty erro}">
-		<div class="alert alert-danger">${erro}</div>
-	</c:if>
+        <div id="message-area"></div>
 
-	<div class="row">
-		<c:forEach var="user" items="${sessionScope.usuarios}">
-			<div class="col-md-4 mb-4">
-				<div class="card card-user h-100">
-					<div class="card-body d-flex flex-column">
-						<h5 class="card-title">${user.usuario}</h5>
-						<p class="card-text mb-1">
-							<strong>Nome:</strong> ${user.nome}
-						</p>
-						<p class="card-text mb-3">
-							<strong>Idade:</strong> ${user.idade}
-						</p>
-						<div class="mt-auto">
-							<a
-								href="${pageContext.request.contextPath}/editar-usuario?id=${user.id}"
-								class="btn btn-sm btn-warning me-2"> Editar </a>
-							<form action="${pageContext.request.contextPath}/excluir-usuario"
-								method="post" style="display: inline"
-								onsubmit="return confirm('Confirmar exclusÃ£o do usuÃ¡rio ${user.usuario}?');">
-								<input type="hidden" name="id" value="${user.id}" />
-								<button type="submit" class="btn btn-sm btn-danger">
-									Excluir</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</c:forEach>
-	</div>
+        <div class="row" id="users-container">
+            </div>
 
-	<c:if test="${empty sessionScope.usuarios}">
-		<div class="alert alert-info">Nenhum usuÃ¡rio cadastrado.</div>
-	</c:if>
-</div>
+        <div id="no-users-message" class="alert alert-info d-none">Nenhum usuário cadastrado.</div>
+    </div>
 
-<%@ include file="footer.jsp"%>
+    <app-footer></app-footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSm5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+    <script src="assets/js/header.js"></script> 
+    <script src="assets/js/components.js" defer></script> 
+    <script src="assets/js/listUsers.js" defer></script> 
+</body>
+</html>
