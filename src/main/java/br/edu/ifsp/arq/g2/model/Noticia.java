@@ -21,6 +21,7 @@ public class Noticia {
 
 	public Noticia(String titulo, String conteudo, String resumo, LocalDate dataPublicacao, String nomeAutor, String categoria) {
 		this();
+		
 		setTitulo(titulo);
 		setConteudo(conteudo);
 		setDataPublicacao(dataPublicacao);

@@ -1,14 +1,4 @@
-console.log("EStou sendo chamado!");
-class AppFooter extends HTMLElement {
-  connectedCallback() {
-    fetch('assets/templates/footer.html')
-      .then(res => res.text())
-      .then(html => {
-        this.innerHTML = html;
-      });
-  }
-}
-customElements.define('app-footer', AppFooter);
+console.log("Header sendo chamado!");
 
 class AppHeader extends HTMLElement {
   connectedCallback() {

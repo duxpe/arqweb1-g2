@@ -5,6 +5,7 @@ public class Usuario {
 	private String usuario;
 	private String senha;
 	private String nome;
+	private boolean isAdmin = false;
 	private int idade;
 	private int id;
 	
@@ -26,6 +27,16 @@ public class Usuario {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+	
+	public boolean isAdmin() {
+		return this.isAdmin;
+	}
+
+	public boolean setIsAdmin(boolean isAdmin, Usuario user) throws Exception {
+		if (!user.isAdmin()) throw new Exception("Usuário precisa ser admin para definir essa propriedade!");
+		this.isAdmin = isAdmin;
+		return this.isAdmin;
 	}
 
 	public String getSenha() {
