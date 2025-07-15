@@ -27,6 +27,7 @@ public class CreateNoticiaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String contextPath = request.getContextPath(); // Captura o context path dinamicamente
         try {
             request.setCharacterEncoding("UTF-8");
 
@@ -37,7 +38,6 @@ public class CreateNoticiaServlet extends HttpServlet {
             String nomeAutor = request.getParameter("nomeAutor");
             String categoria = request.getParameter("categoria");
             
-
             if (titulo == null || titulo.isEmpty()
              || conteudo  == null || conteudo.isEmpty()
              || resumo == null || resumo.isEmpty()
@@ -47,11 +47,10 @@ public class CreateNoticiaServlet extends HttpServlet {
                 throw new RuntimeException("Todos os campos são obrigatórios.");
             }
             
-
             Part imagemPart = request.getPart("imagem");
             byte[] imagemBytes = null;
-            if (imagemPart != null && imagemPart.getSize() > 0) {
-            	try (InputStream is = imagemPart.getInputStream()) {
+            if (imagemPart != null && imagemPart.getSize() > 0 && imagemPart.getSubmittedFileName() != null && !imagemPart.getSubmittedFileName().isEmpty()) {
+                try (InputStream is = imagemPart.getInputStream()) {
                     imagemBytes = is.readAllBytes();
                 }
             }
@@ -71,20 +70,18 @@ public class CreateNoticiaServlet extends HttpServlet {
 
             dao.addNoticia(nova);
 
-            response.sendRedirect(request.getContextPath() + "/listar-noticia");
+            response.sendRedirect(contextPath + "/"); // Redireciona para a lista após sucesso
             return;
         }
         catch (DateTimeParseException ex) {
-            request.setAttribute("erro", "Data de publicação inválida.");
+            // Em caso de erro, redireciona para a página do formulário com uma mensagem de erro
+            response.sendRedirect(contextPath + "/addNoticia.html?erro=" + "Data de publicação inválida.");
         }
         catch (RuntimeException ex) {
-            request.setAttribute("erro", ex.getMessage());
+            response.sendRedirect(contextPath + "/addNoticia.html?erro=" + ex.getMessage());
         }
         catch (Exception ex) {
-            request.setAttribute("erro", "Erro ao criar notícia: " + ex.getMessage());
+            response.sendRedirect(contextPath + "/addNoticia.html?erro=" + "Erro ao criar notícia: " + ex.getMessage());
         }
-        
-        request.getRequestDispatcher("addNoticia.jsp")
-               .forward(request, response);
     }
 }

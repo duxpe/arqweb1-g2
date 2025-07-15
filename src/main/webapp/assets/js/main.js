@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <small class="text-muted mb-2">
                             ${noticia.dataPublicacao} • ${noticia.nomeAutor}
                         </small>
-                        <a href="listar-noticia?id=${noticia.id}" class="btn btn-primary mt-auto">Leia Mais</a>
+                        <a href="viewNoticia.html?id=${noticia.id}" class="btn btn-primary mt-auto">Leia Mais</a>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="carousel-caption text-left">
                         <h5 class="text-white">${noticia.titulo}</h5>
                         <p class="text-white-50">${noticia.resumo}</p>
-                        <a href="listar-noticia?id=${noticia.id}" class="btn btn-sm btn-primary">Leia Mais</a>
+                        <a href="viewNoticia.html?id=${noticia.id}" class="btn btn-sm btn-primary">Leia Mais</a>
                     </div>
                 </div>
             `;

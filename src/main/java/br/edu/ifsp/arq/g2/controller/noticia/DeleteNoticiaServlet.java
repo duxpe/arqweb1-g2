@@ -31,7 +31,7 @@ public class DeleteNoticiaServlet extends HttpServlet {
             }
             int id = Integer.parseInt(idParam);
             dao.removeNoticia(id);
-            response.sendRedirect(request.getContextPath() + "/listar-noticia");
+            response.sendRedirect(request.getContextPath() + "/");
             return;
         }
         catch (NumberFormatException ex) {
