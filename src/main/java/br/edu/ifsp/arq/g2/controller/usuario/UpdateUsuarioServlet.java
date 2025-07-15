@@ -62,7 +62,7 @@ public class UpdateUsuarioServlet extends HttpServlet {
 			int idade = Integer.parseInt(idadeStr);
 
 			dao.updateUsuario(id, usuario, senha, nome, idade);
-			response.sendRedirect(request.getContextPath() + "/listar-usuario");
+			response.sendRedirect(request.getContextPath() + "/");
 		} catch (NumberFormatException ex) {
 			request.setAttribute("erro", "ID e idade devem ser números.");
 			request.getRequestDispatcher("changeUsuario.jsp").forward(request, response);

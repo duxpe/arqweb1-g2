@@ -1,12 +1,26 @@
-console.log("Header sendo chamado!");
+// assets/js/components.js
 
-class AppHeader extends HTMLElement {
-  connectedCallback() {
-	fetch('assets/templates/header.html')
-      .then(res => res.text())
-      .then(html => {
-        this.innerHTML = html;
-      });
-  }
+console.log("EStou sendo chamado!");
+
+async function loadComponent(selector, templatePath) {
+    try {
+        const response = await fetch(templatePath);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const html = await response.text();
+        
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(element => {
+            element.innerHTML = html;
+        });
+
+    } catch (error) {
+        console.error(`Erro ao carregar componente ${selector} de ${templatePath}:`, error);
+    }
 }
-customElements.define('app-header', AppHeader);
+
+// Quando o DOM estiver completamente carregado, injeta os componentes
+document.addEventListener('DOMContentLoaded', () => {
+    loadComponent('app-header', 'assets/templates/header.html'); 
+});

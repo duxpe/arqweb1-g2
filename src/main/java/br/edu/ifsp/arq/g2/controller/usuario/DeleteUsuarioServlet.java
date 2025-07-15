@@ -28,7 +28,7 @@ public class DeleteUsuarioServlet extends HttpServlet {
                 throw new IllegalArgumentException("ID não fornecido.");
             int id = Integer.parseInt(idParam);
             dao.removeUsuario(id);
-            response.sendRedirect(request.getContextPath() + "/listar-usuario");
+            response.sendRedirect(request.getContextPath() + "/");
         } catch (NumberFormatException ex) {
             request.setAttribute("erro", "ID inválido.");
             request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -44,6 +44,6 @@ public class DeleteUsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/listar-usuario");
+        response.sendRedirect(request.getContextPath() + "/");
     }
 }

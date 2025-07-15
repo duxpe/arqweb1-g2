@@ -51,6 +51,7 @@ public class ReadNoticiaServlet extends HttpServlet {
                     Noticia selecionada = dao.getNoticia(id);
                     if (selecionada != null) {
                         selecionada.addVisualizacao(); // Lógica de negócio, se necessário
+                        
                         // Mapeia Noticia para um Map temporário para incluir a imagem em Base64
                         response.getWriter().write(gson.toJson(mapNoticiaToJsonCompatible(selecionada)));
                         return; // Retorna e encerra a requisição
@@ -114,11 +115,13 @@ public class ReadNoticiaServlet extends HttpServlet {
         jsonMap.put("id", noticia.getId());
         jsonMap.put("titulo", noticia.getTitulo());
         jsonMap.put("resumo", noticia.getResumo());
-        // Assumindo que getDataPublicacao retorna LocalDate, podemos convertê-lo para String
         jsonMap.put("dataPublicacao", noticia.getDataPublicacao() != null ? noticia.getDataPublicacao().toString() : null);
         jsonMap.put("nomeAutor", noticia.getNomeAutor());
         jsonMap.put("categoria", noticia.getCategoria());
         jsonMap.put("imagem", imagemBase64); // Imagem já em Base64
+        jsonMap.put("visualizacoes", noticia.getVisualizacoes());
+        jsonMap.put("conteudo", noticia.getConteudo());
+
 
         // Adicione outros campos da sua classe Noticia conforme necessário
         // Ex: jsonMap.put("visualizacoes", noticia.getVisualizacoes());

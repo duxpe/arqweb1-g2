@@ -28,7 +28,7 @@ public class UpdateNoticiaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String idParam = request.getParameter("id");
 		if (idParam == null || idParam.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/listar-noticia");
+			response.sendRedirect(request.getContextPath() + "/");
 			return;
 		}
 
@@ -36,13 +36,13 @@ public class UpdateNoticiaServlet extends HttpServlet {
 			int id = Integer.parseInt(idParam);
 			Noticia noticia = dao.getNoticia(id);
 			if (noticia == null) {
-				response.sendRedirect(request.getContextPath() + "/listar-noticia");
+				response.sendRedirect(request.getContextPath() + "/");
 				return;
 			}
 			request.setAttribute("noticiaSelecionada", noticia);
 			request.getRequestDispatcher("changeNoticia.jsp").forward(request, response);
 		} catch (Exception ex) {
-			response.sendRedirect(request.getContextPath() + "/listar-noticia");
+			response.sendRedirect(request.getContextPath() + "/");
 		}
 	}
 
@@ -80,7 +80,7 @@ public class UpdateNoticiaServlet extends HttpServlet {
 
 			dao.updateNoticia(id, titulo, conteudo, resumo, dataPublicacao, nomeAutor, categoria, imagemBytes);
 
-			response.sendRedirect(request.getContextPath() + "/listar-noticia");
+			response.sendRedirect(request.getContextPath() + "/");
 			return;
 		} catch (NumberFormatException | DateTimeParseException ex) {
 			request.setAttribute("erro", "Parâmetro inválido: " + ex.getMessage());
