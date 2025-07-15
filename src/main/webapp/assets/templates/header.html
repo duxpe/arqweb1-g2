@@ -1,9 +1,38 @@
-	<meta charset="utf-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
-		crossorigin="anonymous">
-	<title>G2 Notícias</title>
+<header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand"
+			href="${pageContext.request.contextPath}/listar-noticia"> G2 News
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle
+			navigation"> <span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link"
+					href="${pageContext.request.contextPath}/sobre.jsp"> Sobre o
+						Sistema </a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${pageContext.request.contextPath}/addNoticia.jsp">
+							Cadastrar Notícia </a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${pageContext.request.contextPath}/listar-usuario">
+							Listar Usuários</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${pageContext.request.contextPath}/editar-usuario?id=${sessionScope.usuarioLogado.id}">
+							Configurações Pessoais </a></li>
+			</ul>
+
+			<ul class="navbar-nav">
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.request.contextPath}/logout"> Logout </a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.request.contextPath}/login.jsp"> Login </a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>

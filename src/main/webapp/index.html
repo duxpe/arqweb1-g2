@@ -1,12 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-	<app-header></app-header>
-	<script src="assets/js/components.js" defer></script>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+		crossorigin="anonymous">
+	<title>G2 Notícias</title>	
 </head>
-
 <body>
-<h1>AAAAAAAAAA</h1>
+	<app-header></app-header>
+	<div class="container py-4">
+		<form method="get"
+			action="${pageContext.request.contextPath}/listar-noticia"
+			class="mb-4">
+			<div class="input-group">
+				<input type="text" name="buscar" class="form-control"
+					placeholder="Buscar notícias por título, autor ou categoria" />
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" type="submit">
+						Buscar</button>
+				</div>
+			</div>
+		</form>
+	</div>
 	<app-footer></app-footer>
+	<script src="assets/js/components.js" defer></script>
 </body>
 </html>
