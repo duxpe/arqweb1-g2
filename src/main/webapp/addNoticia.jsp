@@ -72,7 +72,7 @@
 
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-success me-2">Publicar</button>
-                <a href="g2/listar-noticia" class="btn btn-secondary">Cancelar</a>
+                <a href="/g2/" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
     </div>
