@@ -28,22 +28,22 @@ public class DeleteUsuarioServlet extends HttpServlet {
                 throw new IllegalArgumentException("ID não fornecido.");
             int id = Integer.parseInt(idParam);
             dao.removeUsuario(id);
-            response.sendRedirect(request.getContextPath() + "/");
+            response.sendRedirect(request.getContextPath() + "/listUsuarios.html");
         } catch (NumberFormatException ex) {
             request.setAttribute("erro", "ID inválido.");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("listUsuarios.html").forward(request, response);
         } catch (NoSuchElementException ex) {
             request.setAttribute("erro", ex.getMessage());
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("listUsuarios.html").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("erro", "Erro ao excluir usuário: " + ex.getMessage());
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("listUsuarios.html").forward(request, response);
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/");
+        response.sendRedirect(request.getContextPath() + "/listUsuarios.htmll");
     }
 }

@@ -23,9 +23,9 @@ public class AutenticacaoFiltro implements Filter {
                         || uri.equals(context + "/listar-noticia")
                         || uri.equals(context + "/addUsuario.html")
                         || uri.equals(context + "/criar-usuario")
-                        || uri.contains(context + "/viewNoticia.html")
-                        || uri.equals(context + "/js/components.js") //poderia ser direto, assim
-                        || uri.contains("/assets/") //ou liberamos todos os assets :)
+                        || uri.startsWith(context + "/viewNoticia.html")
+                        || uri.contains("/assets/")
+                        || uri.contains("/logout")
                         || uri.equals(context + "/sobre.html");
         
         System.out.println(openPage + " - " + uri);	

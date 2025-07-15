@@ -1,41 +1,85 @@
 package br.edu.ifsp.arq.g2.controller.avaliacao;
 
 import java.io.IOException;
+import java.util.Optional;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ReadAvaliacaoServlet
- */
-@WebServlet("/ReadAvaliacaoServlet")
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import br.edu.ifsp.arq.g2.dao.AvaliacaoDAO;
+import br.edu.ifsp.arq.g2.model.Avaliacao;
+
+@WebServlet("/obter-avaliacao") // Novo endpoint para obter avaliação
 public class ReadAvaliacaoServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    private static final long serialVersionUID = 1L;
+    private AvaliacaoDAO avaliacaoDAO = AvaliacaoDAO.getInstance();
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create(); // Para JSON formatado
+
     public ReadAvaliacaoServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+        String idNoticiaParam = request.getParameter("idNoticia");
 
+        if (idNoticiaParam == null || idNoticiaParam.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
+            response.getWriter().write(gson.toJson(new ErrorResponse("ID da notícia não fornecido.")));
+            return;
+        }
+
+        try {
+            int idNoticia = Integer.parseInt(idNoticiaParam);
+            Optional<Avaliacao> avaliacaoOptional = avaliacaoDAO.getAvaliacaoNoticia(idNoticia);
+
+            if (avaliacaoOptional.isPresent()) {
+                // Se a avaliação existe, retorna o objeto Avaliacao completo
+                response.getWriter().write(gson.toJson(avaliacaoOptional.get()));
+            } else {
+                // Se não há avaliações para esta notícia, retorna um JSON padrão ou uma avaliação com 0.0
+                // Optei por retornar um objeto Avaliacao com valores padrão (0.0)
+                response.getWriter().write(gson.toJson(new Avaliacao())); 
+            }
+
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
+            response.getWriter().write(gson.toJson(new ErrorResponse("ID da notícia inválido. Deve ser um número inteiro.")));
+        } catch (Exception e) {
+            System.err.println("Erro ao obter avaliação: " + e.getMessage());
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+            response.getWriter().write(gson.toJson(new ErrorResponse("Erro inesperado ao obter avaliação: " + e.getMessage())));
+        }
+    }
+
+    // Não precisamos de doPost para este servlet de leitura
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response); // Ou você pode retornar um 405 Method Not Allowed
+    }
+    
+    // Classe auxiliar para retorno de erro em JSON
+    private static class ErrorResponse {
+        private String message;
+
+        public ErrorResponse(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
 }

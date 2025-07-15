@@ -4,26 +4,6 @@
 
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
-	<servlet>
-		<servlet-name>ReadComentarioServlet</servlet-name>
-		<display-name>ReadComentarioServlet</display-name>
-		<description></description>
-		<servlet-class>br.edu.ifsp.arq.g2.controller.ReadComentarioServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>ReadAvaliacaoServlet</servlet-name>
-		<display-name>ReadAvaliacaoServlet</display-name>
-		<description></description>
-		<servlet-class>br.edu.ifsp.arq.g2.controller.avaliacao.ReadAvaliacaoServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ReadComentarioServlet</servlet-name>
-		<url-pattern>/ReadComentarioServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ReadAvaliacaoServlet</servlet-name>
-		<url-pattern>/ReadAvaliacaoServlet</url-pattern>
-	</servlet-mapping>
 	<welcome-file-list>
     <welcome-file>index.html</welcome-file>
 </welcome-file-list>
