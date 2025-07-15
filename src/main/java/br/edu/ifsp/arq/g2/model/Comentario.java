@@ -2,37 +2,37 @@ package br.edu.ifsp.arq.g2.model;
 
 public class Comentario {
 	
-	private String content;
+	private String comentario;
 	private int idNoticia;
-	private String nome;
+	private String nomeUsuario;
 	
-	public Comentario(int idNoticia, String content, String nome) {
-		this.setNome(nome);
-		this.setContent(content);
+	public Comentario(int idNoticia, String comentario, String nomeUsuario) {
+		this.setNomeUsuario(nomeUsuario);
+		this.setComentario(comentario);
 		this.setIdNoticia(idNoticia);
 	}
-	
-	public String getContent() {
-		return content;
+
+	public String getComentario() {
+		return comentario;
 	}
-	public void setContent(String content) {
-		this.content = content;
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
 	}
-	
-	public String getNome() {
-		return content;
-	}
-	public void setNome(String content) {
-		this.content = content;
-	}
-	
+
 	public int getIdNoticia() {
 		return idNoticia;
 	}
+
 	public void setIdNoticia(int idNoticia) {
 		this.idNoticia = idNoticia;
 	}
-	
-	
-	
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
 }
